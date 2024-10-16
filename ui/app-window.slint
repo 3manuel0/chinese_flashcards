@@ -1,0 +1,133 @@
+import { VerticalBox, Button, ComboBox} from "std-widgets.slint";
+
+export component MainWindow inherits Window {
+    in-out property <string> char_simpl;
+    in-out property <string> char_trad;
+    in-out property <string> penyen;
+    in-out property <string> place_holder:"show penying";
+    in-out property <string> inp_char_simpl: "Simplified";
+    in-out property <string> inp_char_trad: "Traditional";
+    in-out property <string> inp_penyen: "Pinyin";
+    callback next;
+    callback add;
+    width: 1280px;
+    height: 720px;
+    background: rgb(26, 24, 24);
+    title: "Chinese flash cards";
+    icon: @image-url("icons/dragon.png");
+    GridLayout {
+        visible: true;
+        Row {
+            Text {
+                height: 28%;
+                font-italic: false;
+                font-size: 60px;
+                horizontal-alignment: TextHorizontalAlignment.center;
+                text: root.char_simpl;
+                wrap: TextWrap.word-wrap;
+                color: white;
+            }
+
+            Rectangle {
+                background: #333;
+                height: 45px;
+                border-radius: 5px;
+                width: 20%;
+                TextInput {
+                    color: white;
+                    x: 2rem;
+                    y: 5px;
+                    text: root.inp_char_simpl;
+                    font-size: 30px;
+                    edited => {
+                        root.inp_char_simpl = self.text;
+                    }
+                }
+            }
+        }
+
+        Row {
+            Text {
+                height: 28%;
+                font-italic: false;
+                font-size: 60px;
+                horizontal-alignment: TextHorizontalAlignment.center;
+                text: root.char_trad;
+                wrap: TextWrap.word-wrap;
+                color: white;
+            }
+
+            Rectangle {
+                background: #333;
+                height: 45px;
+                border-radius: 5px;
+                width: 20%;
+                TextInput {
+                    color: white;
+                    x: 2rem;
+                    y: 5px;
+                    text: root.inp_char_trad;
+                    font-size: 30px;
+                    edited => {
+                        root.inp_char_trad = self.text;
+                    }
+                }
+            }
+        }
+
+        Row {
+            TouchArea {
+                height: 28%;
+                Text {
+                    font-italic: false;
+                    font-size: 60px;
+                    horizontal-alignment: TextHorizontalAlignment.center;
+                    text: root.place_holder;
+                    wrap: TextWrap.word-wrap;
+                    color: white;
+                }
+
+                clicked => {
+                    root.place_holder = root.penyen;
+                }
+            }
+
+            Rectangle {
+                background: #333;
+                height: 45px;
+                border-radius: 5px;
+                width: 20%;
+                TextInput {
+                    color: white;
+                    x: 2rem;
+                    y: 5px;
+                    text: root.inp_penyen;
+                    font-size: 30px;
+                    edited => {
+                        root.inp_penyen = self.text;
+                    }
+                }
+            }
+        }
+
+        Row {
+            Button {
+                height: 120px;
+                enabled: true;
+                icon: @image-url("icons/next.png");
+                clicked => {
+                    root.next()
+                }
+            }
+
+            Button {
+                height: 120px;
+                enabled: true;
+                icon: @image-url("icons/add.png");
+                clicked => {
+                    root.add()
+                }
+            }
+        }
+    }
+}
