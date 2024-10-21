@@ -1,3 +1,4 @@
+#![windows_subsystem = "windows"]
 use rand::Rng;
 use serde_json::json;
 use serde_json::Value;
@@ -28,7 +29,7 @@ fn main() {
             .open("cards.json")
             .expect("failed"),
     ));
-    let mut v: Rc<RefCell<HashMap<String, Value>>> = {
+    let v: Rc<RefCell<HashMap<String, Value>>> = {
         let file_ref = file.borrow_mut(); // Mutably borrow the file
         Rc::new(RefCell::new(
             serde_json::from_reader(&*file_ref).unwrap_or_default(), // Read from the file and deserialize JSON
@@ -67,7 +68,6 @@ fn main() {
         .map(|s| s.to_string())
         .unwrap();
     // let text = SharedString::from(str);
-    println!("{:?}", v);
     app.set_char_simpl(SharedString::from(char_simpl.to_string()));
     app.set_char_trad(SharedString::from(char_trad.to_string()));
     app.set_penyen(SharedString::from(penyin.to_string()));
@@ -103,7 +103,6 @@ fn main() {
         let v_ref = Rc::clone(&v);
         move || {
             let len = v_ref.borrow().keys().len();
-            println!("{:?}", v_ref);
             let mut newnum = rand::thread_rng().gen_range(0..len);
             while num == newnum {
                 newnum = rand::thread_rng().gen_range(0..len);

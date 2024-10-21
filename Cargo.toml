@@ -1,5 +1,5 @@
 [package]
-name = "slint-rust-template"
+name = "Chinese_flash_cards"
 version = "0.1.0"
 edition = "2021"
 
@@ -13,3 +13,9 @@ rand = "0.8.4"
 quoted-string = "0.6.1"
 [build-dependencies]
 slint-build = "1.7.2"
+
+[package.metadata.windows]
+windows-subsystem = "windows"
+
+[profile.release]
+opt-level = 3
